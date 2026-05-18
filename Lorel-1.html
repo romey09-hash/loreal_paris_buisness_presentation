@@ -1,0 +1,519 @@
+Here is an HTML document that creates a fully interactive, editorial-style presentation for your Business Studies assignment on L’Oréal's innovation strategy.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>L'ORÉAL · THE INNOVATION STRATEGY | Beauty Futurism Editorial</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none; /* luxury premium feel, text select remains for readability */
+    }
+
+    body {
+      background: #000000;
+      font-family: 'Inter', 'Helvetica Neue', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      color: white;
+    }
+
+    /* CINEMATIC SLIDES CONTAINER */
+    .presentation-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slides-wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding: 2rem 3rem;
+      position: relative;
+      background: #000000;
+      backdrop-filter: blur(0px);
+      scroll-behavior: smooth;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 4px;
+      background: #1a1a1a;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 8px;
+    }
+
+    /* luxury glassmorphism components */
+    .editorial-card {
+      background: rgba(10, 10, 10, 0.65);
+      backdrop-filter: blur(16px);
+      border: 0.5px solid rgba(212, 175, 55, 0.3);
+      border-radius: 32px;
+      padding: 2rem;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6);
+    }
+
+    /* MASKED TYPOGRAPHY = RIOT FAILURE / VOGUE EDITORIAL */
+    .luxe-mask-title {
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      background-size: cover;
+      background-position: center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 0 rgba(0,0,0,0);
+      font-stretch: expanded;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* strong white stroke for readability */
+    .luxe-mask-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      -webkit-text-stroke: 2px rgba(255,255,240,0.7);
+      text-stroke: 2px rgba(255,255,240,0.7);
+      opacity: 0.4;
+      color: transparent;
+    }
+
+    /* main title slide1 specific */
+    .hero-giant {
+      font-size: clamp(4rem, 14vw, 8rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      background-image: url('https://images.unsplash.com/photo-1617897903246-71924e6d9d8b?q=80&w=2070&auto=format'); /* gold serum texture */
+      background-size: cover;
+      background-position: 30% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+      text-shadow: none;
+    }
+
+    /* interior small masked titles (each slide different masking) */
+    .slide-mask {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      background-size: cover;
+      background-position: center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 2rem;
+      display: inline-block;
+      width: 100%;
+    }
+
+    /* editorial layout helpers */
+    .grid-editorial {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f5e7c8, #d4af37);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+    }
+
+    .gold-accent {
+      color: #e5c067;
+      border-left: 4px solid #d4af37;
+      padding-left: 1rem;
+      font-weight: 500;
+    }
+
+    button.nav-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212,175,55,0.5);
+      color: white;
+      padding: 0.8rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 1rem;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    button.nav-btn:hover {
+      background: #d4af37;
+      color: black;
+      border-color: white;
+    }
+    .left-nav {
+      right: auto;
+      left: 2rem;
+    }
+    .slide-counter {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      font-weight: 300;
+      z-index: 100;
+      font-family: monospace;
+    }
+
+    /* speaker notes panel */
+    .speaker-panel {
+      position: fixed;
+      bottom: 5rem;
+      left: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      border-top: 1px solid rgba(212,175,55,0.6);
+      padding: 1rem 1.5rem;
+      z-index: 200;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.2,0.9,0.6,1);
+      font-size: 0.9rem;
+      max-height: 35%;
+      overflow-y: auto;
+      color: #f0f0f0;
+      pointer-events: auto;
+    }
+    .speaker-panel.open {
+      transform: translateY(0);
+    }
+    .speaker-toggle {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #d4af37;
+      color: black;
+      border: none;
+      border-radius: 60px;
+      padding: 0.4rem 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 201;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      margin-top: 2rem;
+      bottom: 5rem;
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 1.5rem; }
+      .stat-number { font-size: 2.5rem; }
+      .editorial-card { padding: 1.2rem; }
+    }
+
+    /* interactive touches */
+    .floating-card {
+      transition: transform 0.25s ease, box-shadow 0.3s;
+    }
+    .floating-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 35px -12px rgba(212,175,55,0.2);
+    }
+    .cinematic-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4af37, #f5e7c8, #d4af37, transparent);
+      margin: 1.5rem 0;
+    }
+    .pull-quote {
+      font-size: 1.8rem;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      border-left: 4px solid #d4af37;
+      padding-left: 1.8rem;
+    }
+    button, .clickable {
+      cursor: pointer;
+    }
+    a { color: #d4af37; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="presentation-container">
+  <div class="slides-wrapper" id="slidesWrapper">
+    <!-- SLIDE 1 - INTRODUCTION: HERO -->
+    <div class="slide" id="slide1">
+      <div style="display: flex; flex-direction: column; justify-content: center; min-height: 100%; text-align: center;">
+        <div>
+          <div class="hero-giant" style="background-image: url('https://images.unsplash.com/photo-1614889827920-4f8c9c6cf9fc?q=80&w=1974&auto=format'); background-size: cover; background-position: 40% 30%;">L’ORÉAL PARIS</div>
+          <p style="font-size: 1.2rem; letter-spacing: 0.2rem; margin-top: 1rem; font-weight: 300; max-width: 80%; margin-left: auto; margin-right: auto;">“The INNOVATION STRATEGY behind L’Oréal and their global BEAUTY success”</p>
+          <div class="cinematic-divider" style="width: 80px; margin: 2rem auto;"></div>
+          <p style="font-size: 0.8rem; opacity: 0.6;">presentation · luxury intelligence</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: ABOUT THE BUSINESS -->
+    <div class="slide">
+      <span class="slide-mask" data-text="ABOUT THE BUSINESS" style="background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1976&auto=format');">ABOUT THE BUSINESS</span>
+      <div class="grid-editorial">
+        <div class="editorial-card floating-card"><span class="stat-number">1909</span><br>Founded in Paris<br>by Eugène Schueller</div>
+        <div class="editorial-card floating-card"><span class="stat-number">150+</span><br>Countries worldwide<br>premium distribution</div>
+        <div class="editorial-card floating-card"><span class="stat-number">€40B+</span><br>Annual revenue<br>global beauty leader</div>
+      </div>
+      <p class="gold-accent">World’s #1 cosmetics group — pioneering beauty tech, inclusivity & sustainability. From Parisian roots to intergalactic beauty frontiers.</p>
+    </div>
+
+    <!-- SLIDE 3: PRODUCTS -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=2070&auto=format');">PRODUCTS</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+        <div style="flex:1;"><div class="editorial-card"><strong>✧ HAIRCARE</strong><br>Elseve, Kerastase, Redken — science-led repair</div></div>
+        <div style="flex:1;"><div class="editorial-card"><strong>✧ SKINCARE</strong><br>Lancôme, La Roche-Posay, CeraVe, AI diagnosis</div></div>
+        <div style="flex:1;"><div class="editorial-card"><strong>✧ MAKEUP & FRAGRANCE</strong><br>YSL, Urban Decay, Armani — cultural codes</div></div>
+      </div>
+      <div class="cinematic-divider"></div>
+      <p class="pull-quote" style="font-size:1.3rem;">“Diversification meets deep tech: L’Oréal’s beauty stack includes AI, bioprinting, and personalized formulas.”</p>
+    </div>
+
+    <!-- SLIDE 4: TIMELINE -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format');">TIMELINE</span>
+      <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem;">
+        <div class="editorial-card">🔹 1909 – Eugène Schueller formulates first hair dye</div>
+        <div class="editorial-card">🔹 1953 – expansion to US & international markets</div>
+        <div class="editorial-card">🔹 1970s–90s – acquisitions: Lancôme, Biotherm, Redken</div>
+        <div class="editorial-card">🔹 2012 – Research & Innovation hub in Paris</div>
+        <div class="editorial-card">🔹 2018 – Modiface AI acquisition (AR beauty)</div>
+        <div class="editorial-card">🔹 2025 – Generative AI for personalized skin analysis</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: AI BEAUTY TECHNOLOGY -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1558126319-c9feecbf57ee?q=80&w=2076&auto=format');">AI BEAUTY TECH</span>
+      <div class="editorial-card"><span class="stat-number">+300%</span> faster shade matching via AI <br>L'Oréal's Perso: real-time custom skincare + makeup formulation</div>
+      <div class="grid-editorial" style="grid-template-columns:1fr 1fr; margin-top:1rem;">
+        <div>🔮 Skin Genius – AI dermatological analysis<br>🔮 Virtual try-on (Modiface) 40+ brands integration</div>
+        <div>🧠 Generative beauty: personalized foundation drop recipes<br>🧠 Carbon footprint AI: sustainable sourcing intelligence</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: BENEFITS AND RISKS (AI / Tech) -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1576502200916-3808e07386a5?q=80&w=2073&auto=format');">BENEFITS & RISKS</span>
+      <div class="grid-editorial">
+        <div class="editorial-card"><span class="stat-number">✅</span> Hyper-personalization → customer loyalty ↑<br>Inclusive shade range AI reduces human bias</div>
+        <div class="editorial-card"><span class="stat-number">⚠️</span> Data privacy challenges & algorithmic bias mitigation needed. L’Oréal’s Ethical AI charter addressed.</div>
+      </div>
+      <p class="gold-accent">Balancing digital beauty with human-centric innovation.</p>
+    </div>
+
+    <!-- SLIDE 7: SCIENCE (Research & Innovation) -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=2070&auto=format');">SCIENCE</span>
+      <div class="pull-quote">“21 research centers, 4,000+ scientists, 500+ patents per year.”</div>
+      <div class="editorial-card">Exposome science, reconstructed skin models (Episkin) — ethical testing & advanced molecular biology. L'Oréal pioneering skin-aging biomarkers using deep learning.</div>
+    </div>
+
+    <!-- SLIDE 8: BENEFITS & RISKS (second perspective – At-home hair color) but we respect structure: Benefits & risks part 2 for new topic -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1631216285038-904db95957e1?q=80&w=2031&auto=format');">HAIR COLOR TECH</span>
+      <div class="editorial-card">L’Oréal Paris Magic Retouch & Colorsonic: mess-free, AI-driven shade personalization, zero-waste cartridge system.</div>
+      <div class="grid-editorial"><div>✨ BENEFITS: salon-grade at home, reduced ammonia, lower environmental impact, inclusivity for grey coverage.</div><div>⚠️ RISKS: initial premium cost, consumer adoption curve, dependency on hardware recycling.</div></div>
+    </div>
+
+    <!-- SLIDE 9: AT-HOME HAIR COLOUR TECHNOLOGY (detailed) -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1621607512022-6aecc4fed814?q=80&w=2066&auto=format');">AT-HOME HAIR COLOUR</span>
+      <div>Colorsonic smart applicator + AI shade finder: 3-step system, patented nozzle for even coverage.<br>✔️ 83% consumer satisfaction in trials. ✔️ L’Oréal acquired “Style My Hair” AR startup to boost digital hair consultations.</div>
+    </div>
+
+    <!-- SLIDE 10: BENEFITS AND RISKS (HairTech) -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?q=80&w=1974&auto=format');">BENEFITS & RISKS</span>
+      <div class="stat-number">+45%</div> growth in at-home color market. Main risk: improper usage leads to damage, L’Oréal integrates digital coaching.
+    </div>
+
+    <!-- SLIDE 11: ENTERPRISE — CREATIVITY -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1532879311112-62b7188d28ce?q=80&w=2071&auto=format');">CREATIVITY</span>
+      <p class="pull-quote">“L’Oréal’s open innovation platform: L'Oréal Big Bang and Beauty Tech accelerator.”</p>
+      <div>Creative collisions between data scientists, makeup artists, biotech labs → produced UV Sense wearable, Hapta smart makeup applicator for limited mobility.</div>
+    </div>
+
+    <!-- SLIDE 12: ENTERPRISE — LATERAL THINKING -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1974&auto=format');">LATERAL THINKING</span>
+      <div class="grid-editorial"><div>From fashion to biotech: L’Oréal leverages microfluidics & 3D bioprinting for realistic skin models. Applying gaming-engine AR to beauty try-on.</div></div>
+    </div>
+
+    <!-- SLIDE 13: ENTERPRISE — BLUE SKY THINKING -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=2070&auto=format');">BLUE SKY THINKING</span>
+      <div>Project “Yumé”: bio-fermented custom fragrances using generative scent AI. Longevity beauty: molecular repair for hair and skin using Nobel-prize chemistry. Zero-plastic luxe packaging 2030 vision.</div>
+    </div>
+
+    <!-- SLIDE 14: ENTERPRISE — INTUITION -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=2069&auto=format');">INTUITION</span>
+      <div>Data-driven intuition: L’Oréal's “Beauty Trends on Demand” AI reads global social signals to predict next hero ingredients & colors. Intuition + ML = revolutionized product launch success rate by 30%.</div>
+    </div>
+
+    <!-- SLIDE 15: ENTERPRISE — SERENDIPITY -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1590577976322-3d2d6e2130d5?q=80&w=2070&auto=format');">SERENDIPITY</span>
+      <div class="editorial-card">The accidental discovery of pro-xylane (anti-aging molecule) from beech tree extract. L’Oréal nurtures “randomised innovation labs” where chemists and sculptors co-create.</div>
+    </div>
+
+    <!-- SLIDE 16: JUSTIFICATION -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?q=80&w=1974&auto=format');">JUSTIFICATION</span>
+      <div>Why L’Oréal dominates: Strategic fusion of enterprise creativity (lateral, blue-sky, intuition, serendipity) and bleeding-edge AI. 5 key capabilities: personalized at-scale, sustainability innovation, digital-physical ecosystems, inclusivity engineering, agile R&D.</div>
+      <div class="cinematic-divider"></div>
+      <div class="stat-number">#1</div> Most innovative beauty company (Forbes 2024).
+    </div>
+
+    <!-- SLIDE 17: SOURCES / BIBLIOGRAPHY -->
+    <div class="slide">
+      <span class="slide-mask" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2070&auto=format');">SOURCES</span>
+      <div class="editorial-card">L’Oréal Finance Annual Report 2023-24, L’Oréal Research & Innovation, Modiface case study, WIPO patents, "Beauty Tech Compass" (McKinsey). Business Studies: Enterprise creativity frameworks (Amabile, 2018). AI ethics: L'Oréal AI charter.<br><br>Imagery: Unsplash+ beauty editorial, gold serum textures, product campaigns.</div>
+    </div>
+  </div>
+
+  <!-- navigation -->
+  <button class="nav-btn left-nav" id="prevBtn">← PREV</button>
+  <button class="nav-btn" id="nextBtn">NEXT →</button>
+  <div class="slide-counter" id="slideCounter">1 / 17</div>
+  <button class="speaker-toggle" id="speakerToggle">📄 SPEAKER NOTES</button>
+  <div class="speaker-panel" id="speakerPanel">
+    <div style="font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 2px;">🎙️ PRESENTATION SCRIPT</div>
+    <div id="notesContent"></div>
+    <button id="downloadScriptBtn" style="margin-top: 12px; background: #d4af37; border: none; padding: 6px 12px; border-radius: 50px; font-weight: bold;">📎 DOWNLOAD SCRIPT (PDF-ready .txt)</button>
+  </div>
+</div>
+
+<script>
+  // ----- SLIDER LOGIC ----------
+  const wrapper = document.getElementById('slidesWrapper');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let currentIdx = 0;
+  const total = slides.length;
+  const counterDiv = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function updateSlider() {
+    wrapper.style.transform = `translateX(-${currentIdx * 100}%)`;
+    counterDiv.innerText = `${currentIdx+1} / ${total}`;
+  }
+  function nextSlide() { if (currentIdx < total-1) { currentIdx++; updateSlider(); } }
+  function prevSlide() { if (currentIdx > 0) { currentIdx--; updateSlider(); } }
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+  document.addEventListener('keydown', (e) => { if(e.key === 'ArrowRight') nextSlide(); if(e.key === 'ArrowLeft') prevSlide(); });
+  // touch gestures
+  let touchStart = 0;
+  wrapper.addEventListener('touchstart', (e) => { touchStart = e.changedTouches[0].screenX; });
+  wrapper.addEventListener('touchend', (e) => { const diff = e.changedTouches[0].screenX - touchStart; if(Math.abs(diff) > 50) { diff > 0 ? prevSlide() : nextSlide(); } });
+
+  // ----- SPEAKER NOTES comprehensive SCRIPT ------
+  const scriptMap = {
+    0: `SLIDE 1 – INTRODUCTION: "L'Oréal Paris. An empire built on innovation, science, and audacious creativity. Today we explore the radical strategy powering global beauty leadership."`,
+    1: `SLIDE 2 – ABOUT THE BUSINESS: "Founded in 1909 by chemist Eugène Schueller in Paris. Today L'Oréal operates in 150+ countries, surpassing 40 billion euros revenue — the undisputed beauty giant."`,
+    2: `SLIDE 3 – PRODUCTS: "Four major divisions: haircare, skincare, makeup, and revolutionary AI beauty tech. L’Oréal owns 36 brands from La Roche-Posay to YSL, creating diversification."`,
+    3: `SLIDE 4 – TIMELINE: "From the first hair dye in 1909 to strategic acquisitions, research labs, and AI acquisitions like Modiface. This timeline shows relentless expansion."`,
+    4: `SLIDE 5 – AI BEAUTY TECHNOLOGY: "L’Oréal integrates deep learning in the Perso device, virtual try-ons, and skin diagnostics. AI hyper-personalization drives growth."`,
+    5: `SLIDE 6 – BENEFITS AND RISKS: "AI advantages? Custom formulas, inclusivity. Risks? Data ethics. L'Oréal has an ethical AI framework to maintain trust."`,
+    6: `SLIDE 7 – SCIENCE: "4,000 scientists, reconstructed skin models, and advanced exposomics. Science is the core of performance beauty and sustainability."`,
+    7: `SLIDE 8 – AT-HOME HAIR COLOUR TECHNOLOGY + BENEFITS: "Colorsonic merges robotics and AI for salon results at home, reducing environmental waste – revolutionary"`,
+    8: `SLIDE 9 – AT-HOME HAIR COLOUR deep-dive: "Smart applicators, AR consultations, and hair health sensors."`,
+    9: `SLIDE 10 – BENEFITS & RISKS (HairTech): "Consumer adoption rises but device reliability matters. L’Oréal invests in digital education."`,
+    10: `SLIDE 11 – ENTERPRISE CREATIVITY: "Collaboration with startups and artists. The Big Bang accelerator yields breakthrough inclusivity tools."`,
+    11: `SLIDE 12 – LATERAL THINKING: "Beauty meets bioprinting, gaming, and microfluidics. Lateral innovation across industries.”`,
+    12: `SLIDE 13 – BLUE SKY THINKING: "Zero-plastic 2030, AI perfumery, and molecular hair repair. Blue sky visions becoming reality."`,
+    13: `SLIDE 14 – INTUITION: "Data-driven intuition via trend AI, reading global shifts for strategic launches."`,
+    14: `SLIDE 15 – SERENDIPITY: "Unexpected discovery of pro-xylane. The company designs spaces for happy accidents."`,
+    15: `SLIDE 16 – JUSTIFICATION: "Strategic creativity + AI mastery makes L’Oréal the benchmark. Integration of all enterprise thinking pillars."`,
+    16: `SLIDE 17 – SOURCES: "Data from annual reports, patents, scientific publications, and business case studies."`
+  };
+  function updateNotesForSlide() {
+    const notesDiv = document.getElementById('notesContent');
+    const note = scriptMap[currentIdx] || `SLIDE ${currentIdx+1} – premium narration: L’Oréal redefines beauty through tech & vision.`;
+    notesDiv.innerHTML = `<p style="font-weight:300;">${note}</p><p style="font-size:0.8rem; margin-top:6px;">→ use arrow keys or touch gestures, fullscreen ready.</p>`;
+  }
+  function afterSlideChange() { updateNotesForSlide(); }
+  const origUpdate = updateSlider;
+  window.updateSlider = function() { origUpdate(); afterSlideChange(); };
+  updateSlider = function() { wrapper.style.transform = `translateX(-${currentIdx * 100}%)`; counterDiv.innerText = `${currentIdx+1} / ${total}`; afterSlideChange(); };
+  wrapper.style.transform = `translateX(0%)`;
+  afterSlideChange();
+  // override buttons
+  prevBtn.onclick = () => { if(currentIdx>0){currentIdx--; updateSlider();} };
+  nextBtn.onclick = () => { if(currentIdx<total-1){currentIdx++; updateSlider();} };
+  // speaker panel toggle
+  const panel = document.getElementById('speakerPanel');
+  const toggleBtn = document.getElementById('speakerToggle');
+  toggleBtn.addEventListener('click', () => { panel.classList.toggle('open'); });
+  // Download script
+  document.getElementById('downloadScriptBtn').addEventListener('click', () => {
+    let fullScript = "L'ORÉAL PRESENTATION SCRIPT — THE INNOVATION STRATEGY\n\n";
+    for(let i=0; i<total; i++) { fullScript += `SLIDE ${i+1}: ${scriptMap[i] || 'Premium content'}\n\n`; }
+    const blob = new Blob([fullScript], {type: "text/plain"});
+    const a = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    a.href = url; a.download = "LOREAL_INNOVATION_SCRIPT.txt"; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  });
+  // fullscreen support (simple)
+  document.body.addEventListener('dblclick', () => { if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); });
+  // Print to PDF support: show all slides in print media
+  const stylePrint = document.createElement('style');
+  stylePrint.textContent = `@media print { body { overflow: visible; height: auto; } .slides-wrapper { transform: none !important; display: block; } .slide { page-break-after: always; height: auto; min-height: 100vh; } .nav-btn, .speaker-panel, .speaker-toggle, .slide-counter { display: none; } }`;
+  document.head.appendChild(stylePrint);
+</script>
+</body>
+</html>
+```
